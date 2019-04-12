@@ -1,6 +1,7 @@
 "use strict";
 
 const express = require("express");
+const opn = require('opn');
 
 const mainRouter = require("./lib/routes");
 
@@ -17,5 +18,7 @@ app.use(function(req, res, next) {
 app.use("/", mainRouter);
 
 app.listen(port, () => {
-	console.log(`app listening on port ${port}`);
+    console.log(`app listening on port ${port}`);
+
+    opn(`http://localhost:${port}`);
 });

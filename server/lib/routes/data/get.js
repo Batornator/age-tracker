@@ -11,6 +11,7 @@ const errorUtils = require("../../util/error");
 const filePath = path.join(__dirname, "../../store/ageData.csv");
 
 const fields = [
+    "id",
     "name",
     "DOB",
     "ageYears",
@@ -39,7 +40,7 @@ const readFile = (cb) => {
 
 const calculateAges = (data) => {
     return data.map((record) => {
-        const {name, DOB} = record;
+        const {id, name, DOB} = record;
 
         const dobMoment = moment(DOB, "DD/MM/YYYY");
         const ageYears = moment().diff(dobMoment, "years");
@@ -47,6 +48,7 @@ const calculateAges = (data) => {
         const ageMonths = monthsSinceBirth - (ageYears * 12);
         
         return {
+            id,
             name,
             DOB,
             ageYears,

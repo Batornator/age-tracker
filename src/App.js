@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import HTTP from './utils/HTTP';
 
 import AgeGrid from './AgeGrid/AgeGrid.js';
 
@@ -38,6 +39,20 @@ class App extends Component {
       )
   }
 
+
+  editRecord (record) {
+    // TODO
+  }
+
+  deleteRecord (recordId) {
+    HTTP.delete(`data/${recordId}`)
+    .then(resp => {
+      console.log(resp); // TODO : Handle response
+    }).catch(err => {
+      console.error(err); // TODO : Handle errors
+    });
+  }
+
   render() {
     const {error, loaded, data} = this.state;
 
@@ -54,7 +69,11 @@ class App extends Component {
     }
 
     return (
-      <AgeGrid data={data}></AgeGrid>
+      <AgeGrid
+        data={data}
+        editRecord={this.editRecord}
+        deleteRecord={this.deleteRecord}
+      ></AgeGrid>
     );
   }
 }

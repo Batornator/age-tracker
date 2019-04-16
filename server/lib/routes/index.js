@@ -5,6 +5,7 @@ const path = require("path");
 
 // Routing here
 const dataRoutes = require("./data");
+const csvRoutes = require("./csv");
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.get("/", (req, res) => {
 });
 
 router.use("/data", dataRoutes);
+router.use("/csv", csvRoutes);
 
 module.exports = router;

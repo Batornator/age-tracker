@@ -2,7 +2,7 @@
 class HTTP {
     static _baseUrl = "http://localhost:1337/";
 
-    static _setHeaders = (req, headers) => {
+    static _setHeaders (req, headers) {
         req.setRequestHeader("Content-Type", "application/json");
 
         if (!headers) {
@@ -18,7 +18,7 @@ class HTTP {
         });
     };
 
-    static _formatBody = (body) => {
+    static _formatBody (body) {
         if (body && typeof body !== "string") {
             return JSON.stringify(body);
         }
@@ -26,7 +26,7 @@ class HTTP {
         return body;
     };
 
-    static _handleResponse = (req, resolve, reject) => {
+    static _handleResponse (req, resolve, reject) {
         let responseBody;
         if (req.readyState === XMLHttpRequest.DONE) {
             if (req.status === 204) {
@@ -54,7 +54,7 @@ class HTTP {
         }
     };
 
-    static _makeRequest = (method, url, {headers, body} = {headers: null, body: null}) => {
+    static _makeRequest (method, url, {headers, body} = {headers: null, body: null}) {
         return new Promise((resolve, reject) => {
             if (!url) {
                 console.warn(`No URL specified to delete call. Will make HTTP ${method} request to ${this._baseUrl}`);
@@ -74,23 +74,39 @@ class HTTP {
         });
     };
 
-    static get = (url, headers = null) => {
+    static get (url, headers = null) {
         return this._makeRequest("GET", url, {headers});
     };
 
-    static put = (url, { headers, body } = {headers: null, body: null}) => {
+    static put (url, { headers, body } = {headers: null, body: null}) {
         return this._makeRequest("PUT", url, {headers, body});
     };
 
-    static post = (url, { headers, body } = {headers: null, body: null}) => {
+    static post (url, { headers, body } = {headers: null, body: null}) {
         return this._makeRequest("POST", url, {headers, body});
     };
 
-    /*
-        Expect headers to be an array of key value pairs.
-    */
-    static delete = (url, { headers, body } = {headers: null, body: null}) => {
+    static delete (url, { headers, body } = {headers: null, body: null}) {
         return this._makeRequest("DELETE", url, {headers, body});
+    };
+
+    static downloadFile (url) {
+        return new Promise((resolve, reject) => {
+            const req = new XMLHttpRequest();
+
+            req.open("GET", `${this._baseUrl}${url}`);
+
+            req.onreadystatechange = () => { 
+                if (req.status === 200) {
+                    // no content so just return good response
+                    return resolve(req.responseText);
+                }
+
+                return reject("Unexpected error occurred");
+            };
+
+            req.send();
+        });
     };
 }
 

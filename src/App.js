@@ -17,10 +17,15 @@ class App extends Component {
     };
   }
 
+  logError (error) {
+    console.error("Unexpected Error occurred", error);
+  }
+
   errorCb (error) {
+    this.logError(error);
     this.setState({
       loaded: true,
-      error
+      error: "Error loading data"
     });
   }
 
@@ -36,7 +41,14 @@ class App extends Component {
           data: result.data
         });
       })
-      .catch(() => this.errorCb());
+      .catch((err) => this.errorCb(err));
+  }
+
+  onError (message, error) {
+    this.logError(error);
+    this.setState({
+      error: message
+    });
   }
 
   componentDidMount() {
@@ -48,7 +60,7 @@ class App extends Component {
 
     if (error) {
       return (
-        <Alert variant="danger">THERE WAS AN ERROR - {error.message}</Alert>
+        <Alert variant="danger">{error || "Unknown error occurred"}</Alert>
       );
     }
 
@@ -65,6 +77,7 @@ class App extends Component {
             <AgeGrid
               data={data}
               onRequireRefresh={() => this.getData()}
+              onError={(message, err) => this.onError(message, err)}
             ></AgeGrid>
           </Col>
         </Row>

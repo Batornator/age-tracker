@@ -42,15 +42,15 @@ class HTTP {
             }
 
             if (req.status === 200) {
-                if (responseBody.error) {
+                if (responseBody.errors) {
                     // handle error response - this probably shouldnt happen as status code should handle this
-                    return reject(responseBody.error);
+                    return reject(responseBody.errors);
                 }
 
                 return resolve(responseBody);
             }
 
-            return reject(responseBody.error || "Unexpected error occurred");
+            return reject(responseBody.errors || "Unexpected error occurred");
         }
     };
 

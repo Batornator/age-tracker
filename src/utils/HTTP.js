@@ -75,7 +75,7 @@ class HTTP {
     };
 
     static get = (url, headers = null) => {
-        return this._makeRequest("GET", url, headers);
+        return this._makeRequest("GET", url, {headers});
     };
 
     static put = (url, { headers, body } = {headers: null, body: null}) => {

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import HTTP from './utils/HTTP';
+import { Container, Row, Col, Alert } from 'react-bootstrap';
 
-import AgeGrid from './AgeGrid/AgeGrid.js';
+import AgeGrid from './AgeGrid/AgeGrid';
+
+import HTTP from './utils/HTTP';
 
 class App extends Component {
   constructor (props) {
@@ -10,7 +12,8 @@ class App extends Component {
     this.state = {
       error: null,
       loaded: false,
-      data: []
+      data: [],
+      deleteConfirmation: null
     };
   }
 
@@ -21,36 +24,23 @@ class App extends Component {
     });
   }
 
+  getData () {
+    HTTP.get("data")
+      .then((result) => {
+        if (result.errors && result.errors.length) {
+          return this.errorCb(result.errors[0]);
+        }
+
+        this.setState({
+          loaded: true,
+          data: result.data
+        });
+      })
+      .catch(() => this.errorCb());
+  }
+
   componentDidMount() {
-    fetch("http://localhost:1337/data")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          if (result.errors && result.errors.length) {
-            return this.errorCb(result.errors[0]);
-          }
-
-          this.setState({
-            loaded: true,
-            data: result.data
-          });
-        },
-        this.errorCb
-      )
-  }
-
-
-  editRecord (record) {
-    // TODO
-  }
-
-  deleteRecord (recordId) {
-    HTTP.delete(`data/${recordId}`)
-    .then(resp => {
-      console.log(resp); // TODO : Handle response
-    }).catch(err => {
-      console.error(err); // TODO : Handle errors
-    });
+    this.getData();
   }
 
   render() {
@@ -58,7 +48,7 @@ class App extends Component {
 
     if (error) {
       return (
-        <div>THERE WAS AN ERROR - {error.message}</div>
+        <Alert variant="danger">THERE WAS AN ERROR - {error.message}</Alert>
       );
     }
 
@@ -69,11 +59,16 @@ class App extends Component {
     }
 
     return (
-      <AgeGrid
-        data={data}
-        editRecord={this.editRecord}
-        deleteRecord={this.deleteRecord}
-      ></AgeGrid>
+      <Container>
+        <Row>
+          <Col lg="6">
+            <AgeGrid
+              data={data}
+              onRequireRefresh={() => this.getData()}
+            ></AgeGrid>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

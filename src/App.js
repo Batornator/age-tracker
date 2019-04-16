@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
 
 import AgeGrid from './AgeGrid/AgeGrid';
 
@@ -55,6 +55,10 @@ class App extends Component {
     this.getData();
   }
 
+  getFile () {
+    window.open("http://localhost:1337/csv");
+  }
+
   render() {
     const {error, loaded, data} = this.state;
 
@@ -73,12 +77,15 @@ class App extends Component {
     return (
       <Container>
         <Row>
-          <Col lg="6">
+          <Col sm="12" lg="6">
             <AgeGrid
               data={data}
               onRequireRefresh={() => this.getData()}
               onError={(message, err) => this.onError(message, err)}
             ></AgeGrid>
+          </Col>
+          <Col sm="12" lg="1">
+            <Button onClick={() => this.getFile()}>Download CSV</Button>
           </Col>
         </Row>
       </Container>

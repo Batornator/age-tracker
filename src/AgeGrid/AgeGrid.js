@@ -38,9 +38,8 @@ class AgeGrid extends Component {
 				});
 
 				this.props.onRequireRefresh();
-				console.log(resp); // TODO : Handle response
 			}).catch(err => {
-				console.error(err); // TODO : Handle errors
+				this.props.onError("There was an error deleting the record", err);
 			});
 	}
 
@@ -75,8 +74,7 @@ class AgeGrid extends Component {
 							<th>Name</th>
 							<th>Date Of Birth</th>
 							<th>Age</th>
-							<th></th>
-							<th></th>
+							<th colSpan="2"></th>
 						</tr>
 					</thead>
 

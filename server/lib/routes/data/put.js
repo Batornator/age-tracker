@@ -14,7 +14,7 @@ const updateRecordInDataSet = (recordId, newData, dataSet, cb) => {
     ageDataStore.writeDataToFile(dataSet, cb);
 };
 
-// DELETE:/data/
+// PUT:/data/:recordId
 module.exports = (req, res) => {
 
     async.waterfall([

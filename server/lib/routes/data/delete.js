@@ -11,7 +11,7 @@ const removeRecordFromDataSet = (recordId, dataSet, cb) => {
     ageDataStore.writeDataToFile(dataSet, cb);
 };
 
-// DELETE:/data/
+// DELETE:/data/:recordId
 module.exports = (req, res) => {
 
     async.waterfall([

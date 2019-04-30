@@ -21,7 +21,7 @@ const addRecordToDataSet = (newData, dataSet, cb) => {
     });
 };
 
-// DELETE:/data/
+// POST:/data/
 module.exports = (req, res) => {
 
     async.waterfall([

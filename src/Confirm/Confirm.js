@@ -27,8 +27,7 @@ class Confirm extends Component {
 
     render () {
         return (
-
-            <Modal show={true}>
+            <Modal show={true} onHide={() => this.props.cancelAction()}>
                 <Modal.Body>{this.props.message}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => this.cancelAction()}>

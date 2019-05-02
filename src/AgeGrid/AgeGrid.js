@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+
+import AgeGridRow from './AgeGridRow'
 
 import './AgeGrid.css';
 
 class AgeGrid extends Component {
 	render () {
-		let tableContents = this.props.data.map((record) => {
-			const {id, name, DOB, ageYears, ageMonths} = record;
-			return (
-				<tr key={id}>
-					<td>{name}</td>
-					<td>{DOB}</td>
-					<td>{ageYears} Years {ageMonths} Months</td>
-					<td>
-						<Button variant="secondary" onClick={() => this.props.onEditRecord(record)}>Edit</Button>
-					</td>
-					<td>
-						<Button variant="danger" onClick={() => this.props.confirmDelete(id)}>Delete</Button>
-					</td>
-				</tr>
-			);
-		});
+		const {data, onEditRecord, confirmDelete} = this.props;
 
 		return (
 			<Table striped bordered hover>
@@ -34,7 +21,14 @@ class AgeGrid extends Component {
 				</thead>
 
 				<tbody>
-					{tableContents}
+					{data.map(record => {
+						return <AgeGridRow
+							key={record.id}
+							data={record}
+							onEditRecord={(record) => onEditRecord(record)}
+							confirmDelete={(id) => confirmDelete(id)}
+						></AgeGridRow>;
+					})}
 				</tbody>
 			</Table>
 		);

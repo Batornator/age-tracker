@@ -23,7 +23,7 @@ module.exports = (req, res) => {
                 errors: err.errors
             });
         }
-        
+
         return res.status(200).json({
             data: { id: req.params.recordId }
         });

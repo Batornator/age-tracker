@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 
 class AgeGridRow extends Component {
-	render () {
-        const {data, onEditRecord, confirmDelete} = this.props;
-        const {id, name, DOB, ageYears, ageMonths} = data;
+    render() {
+        const { data, onEditRecord, confirmDelete } = this.props;
+        const { id, name, DOB, ageYears, ageMonths } = data;
 
-		return (
+        return (
             <tr>
                 <td>{name}</td>
                 <td>{DOB}</td>
@@ -19,7 +19,7 @@ class AgeGridRow extends Component {
                 </td>
             </tr>
         );
-	}
+    }
 }
 
 export default AgeGridRow;

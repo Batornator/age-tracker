@@ -9,7 +9,7 @@ const ageDataStore = require("../../store/ageData");
 const addRecordToDataSet = (newData, dataSet, cb) => {
     const recordId = uuidv4();
     const newRecord = ageCalculationProgram.calculateAge({ ...newData, id: recordId });
-    
+
     dataSet.push(newRecord);
 
     ageDataStore.writeDataToFile(dataSet, (err) => {
@@ -33,7 +33,7 @@ module.exports = (req, res) => {
                 errors: err.errors
             });
         }
-        
+
         return res.status(200).json({
             data: { id: recordId }
         });

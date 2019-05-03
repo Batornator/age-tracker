@@ -3,9 +3,9 @@ import { Modal, Button } from 'react-bootstrap';
 
 import './Confirm.css';
 
-class Confirm extends Component {  
+class Confirm extends Component {
 
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -13,19 +13,19 @@ class Confirm extends Component {
         }
     }
 
-    cancelAction () {
+    cancelAction() {
         if (this.props.cancelAction) {
             this.props.cancelAction();
         }
     }
 
-    confirmAction () {
+    confirmAction() {
         if (this.props.confirmAction) {
             this.props.confirmAction();
         }
     }
 
-    render () {
+    render() {
         return (
             <Modal show={true} onHide={() => this.props.cancelAction()}>
                 <Modal.Body>{this.props.message}</Modal.Body>

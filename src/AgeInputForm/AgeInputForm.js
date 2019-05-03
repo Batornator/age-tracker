@@ -4,7 +4,7 @@ import { Modal, Row, Col, Form, Button } from 'react-bootstrap';
 
 class AgeInputform extends Component {
 
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -12,12 +12,12 @@ class AgeInputform extends Component {
         };
     }
 
-    validate (e) {
+    validate(e) {
         this.setState({ validated: true });
         return e.currentTarget.checkValidity();
     }
 
-    submitForm (e) {
+    submitForm(e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -37,15 +37,15 @@ class AgeInputform extends Component {
         this.props.onSave(record)
     }
 
-	render () {
-        const {validated} = this.state;
+    render() {
+        const { validated } = this.state;
 
-		return (
+        return (
             <Modal show={true} onHide={() => this.props.onCancel()}>
-                <Form 
+                <Form
                     noValidate
                     validated={validated}
-                    onSubmit={(e) => {this.submitForm(e)}}
+                    onSubmit={(e) => { this.submitForm(e) }}
                 >
                     <Modal.Body>
                         <Row>
@@ -53,12 +53,12 @@ class AgeInputform extends Component {
                                 <Form.Label>Name</Form.Label>
                             </Col>
                             <Col sm="12" lg="10">
-                                <Form.Control 
+                                <Form.Control
                                     type="text"
                                     name="name"
                                     placeholder="Enter name"
                                     defaultValue={this.props.record.name}
-                                    required/>
+                                    required />
                             </Col>
                         </Row>
                         <Row>
@@ -72,9 +72,9 @@ class AgeInputform extends Component {
                                     placeholder="DD/MM/YYYY"
                                     defaultValue={this.props.record.DOB}
                                     pattern="\d{2}\/\d{2}\/\d{4}"
-                                    required/>
+                                    required />
                             </Col>
-                        </Row>                    
+                        </Row>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => this.props.onCancel()}>Cancel</Button>
@@ -82,8 +82,8 @@ class AgeInputform extends Component {
                     </Modal.Footer>
                 </Form>
             </Modal>
-		);
-	}
+        );
+    }
 }
 
 export default AgeInputform;

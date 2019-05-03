@@ -6,8 +6,8 @@ import AgeGridRow from './AgeGridRow'
 import './AgeGrid.css';
 
 class AgeGrid extends Component {
-	render () {
-		const {data, onEditRecord, confirmDelete} = this.props;
+	render() {
+		const { data, onEditRecord, confirmDelete } = this.props;
 
 		return (
 			<Table striped bordered hover>

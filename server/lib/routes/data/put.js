@@ -8,7 +8,7 @@ const ageDataStore = require("../../store/ageData");
 const updateRecordInDataSet = (recordId, newData, dataSet, cb) => {
     const recordIndex = dataSet.findIndex((record) => record.id === recordId);
     const newRecord = ageCalculationProgram.calculateAge({ ...newData, id: recordId });
-    
+
     dataSet.splice(recordIndex, 1, newRecord);
 
     ageDataStore.writeDataToFile(dataSet, cb);
@@ -26,7 +26,7 @@ module.exports = (req, res) => {
                 errors: err.errors
             });
         }
-        
+
         return res.status(200).json({
             data: { id: req.params.recordId }
         });

@@ -46,8 +46,8 @@ const parseFileContents = (data, cb) => {
     if (!data || !data.length) {
         return cb(null, []);
     }
-    
-    csvParser(data, {columns: fields}, (err, results) => {
+
+    csvParser(data, { columns: fields }, (err, results) => {
         if (err) {
             return cb(errorUtils.unexpectedServerError(err));
         }

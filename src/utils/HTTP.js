@@ -1,6 +1,7 @@
 
+console.log(process.env.REACT_APP_SERVER_URL);
 class HTTP {
-    static _baseUrl = "http://localhost:1337/";
+    static _baseUrl = process.env.REACT_APP_SERVER_URL || "";
 
     static _setHeaders(req, headers) {
         req.setRequestHeader("Content-Type", "application/json");
